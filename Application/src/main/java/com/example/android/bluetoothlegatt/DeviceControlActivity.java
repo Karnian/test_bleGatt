@@ -27,12 +27,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
@@ -58,12 +60,6 @@ public class DeviceControlActivity extends Activity {
     public static final String EXTRA_DATA                                                       = "EXTRA_DATA";
     public static final String EXTRA_DEVICE                                                     = "EXTRA_DEVICE";
 
-    public static final UUID THINGY_ENVIRONMENTAL_SERVICE                                       = new UUID(0xEF6802009B354933L, 0x9B1052FFA9740042L);
-
-    public static final UUID TEMPERATURE_CHARACTERISTIC                                         = new UUID(0xEF6802019B354933L, 0x9B1052FFA9740042L);
-    public static final UUID PRESSURE_CHARACTERISTIC                                            = new UUID(0xEF6802029B354933L, 0x9B1052FFA9740042L);
-    public static final UUID HUMIDITY_CHARACTERISTIC                                            = new UUID(0xEF6802039B354933L, 0x9B1052FFA9740042L);
-
     private TextView mConnectionState;
     private TextView mDataField;
     private String mDeviceName;
@@ -77,6 +73,9 @@ public class DeviceControlActivity extends Activity {
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
+
+    public StartActivity mStartActivity;
+    public Button addButton;
 
     private BluetoothGattCharacteristic mTemperatureCharacteristic;
     private BluetoothGattCharacteristic mHumidityCharacteristic;
@@ -110,7 +109,8 @@ public class DeviceControlActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            Log.d("ACTION : ",  "//////" + action);
+            final String mDeviceAddress = intent.getStringExtra(BluetoothLeService.EXTRA_DEVICE);
+            Log.d("ACTION : ",  mDeviceAddress + "//////" + action);
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
                 updateConnectionState(R.string.connected);
@@ -129,9 +129,10 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
-            } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+            } /*
+            else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-            }
+            }*/
         }
     };
 
@@ -192,6 +193,15 @@ public class DeviceControlActivity extends Activity {
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
         mDataField = (TextView) findViewById(R.id.data_value);
+
+        addButton = (Button) findViewById(R.id.add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStartActivity = new StartActivity();
+                mStartActivity.execute();
+            }
+        });
 
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -361,4 +371,14 @@ public class DeviceControlActivity extends Activity {
     public void HumidChangeEvent(String humidity) {
         Log.d("HUM received",  mDeviceAddress + "//////" + humidity);
     }
+
+    class StartActivity extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            startActivity(new Intent(DeviceControlActivity.this, DeviceScanActivity.class));
+            return null;
+        }
+    }
+
 }

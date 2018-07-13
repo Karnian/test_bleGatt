@@ -52,8 +52,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.bluetoothlegatt.DeviceControlActivity" />
@@ -61,6 +59,16 @@
         <service
             android:name="com.example.android.bluetoothlegatt.BluetoothLeService"
             android:enabled="true" />
+
+        <activity
+            android:name="com.example.android.bluetoothlegatt.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="com.android.tools.ir.server.InstantRunContentProvider"

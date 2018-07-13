@@ -52,8 +52,6 @@ public class DeviceScanActivity extends ListActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
     private Handler mHandler;
-    public StartActivity mStartActivity;
-    public Intent intent;
 
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
@@ -161,15 +159,14 @@ public class DeviceScanActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
         if (device == null) return;
-        intent = new Intent(this, DeviceControlActivity.class);
+        final Intent intent = new Intent(this, DeviceControlActivity.class);
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
         if (mScanning) {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
             mScanning = false;
         }
-        mStartActivity = new StartActivity();
-        mStartActivity.execute();
+        startActivity(intent);
     }
 
     private void scanLeDevice(final boolean enable) {
@@ -278,14 +275,5 @@ public class DeviceScanActivity extends ListActivity {
     static class ViewHolder {
         TextView deviceName;
         TextView deviceAddress;
-    }
-
-    class StartActivity extends AsyncTask {
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            startActivity(intent);
-            return null;
-        }
     }
 }

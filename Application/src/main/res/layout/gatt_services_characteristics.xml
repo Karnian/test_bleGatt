@@ -20,10 +20,11 @@
         android:layout_margin="10dp">
 
     <Button
-        android:id="@+id/Add"
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:onClick="onAddButtonClicked"
+        android:text="ADD" />
 
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="match_parent"
