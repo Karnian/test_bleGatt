@@ -21,17 +21,11 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mStartActivity = new StartActivity();
-                mStartActivity.execute();
+                mStartActivity.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 0);
             }
         });
     }
 
-    /*
-    public void onAddButtonClicked(View v) {
-        mStartActivity = new StartActivity();
-        mStartActivity.execute();
-    }
-*/
     class StartActivity extends AsyncTask {
 
         @Override

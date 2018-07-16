@@ -74,7 +74,7 @@ public class DeviceControlActivity extends Activity {
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
 
-    public StartActivity mStartActivity;
+//    public StartActivity mStartActivity;
     public Button addButton;
 
     private BluetoothGattCharacteristic mTemperatureCharacteristic;
@@ -121,6 +121,9 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.HUMIDITY_NOTIFICATION.equals(action)) {
                 final String humidity = intent.getExtras().getString(EXTRA_DATA);
                 HumidChangeEvent(humidity);
+            } else if (BluetoothLeService.THINGY_MOTION_CONFIGURATION_CHARACTERISTIC.equals(action)) {
+                final String motion = intent.getExtras().getString(EXTRA_DATA);
+                MotionChangeEvent(motion);
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
                 updateConnectionState(R.string.disconnected);
@@ -198,8 +201,9 @@ public class DeviceControlActivity extends Activity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStartActivity = new StartActivity();
-                mStartActivity.execute();
+                startActivity(new Intent(DeviceControlActivity.this, MainActivity.class));
+//                mStartActivity = new StartActivity();
+//                mStartActivity.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 0);
             }
         });
 
@@ -355,6 +359,7 @@ public class DeviceControlActivity extends Activity {
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         intentFilter.addAction(BluetoothLeService.TEMPERATURE_NOTIFICATION);
         intentFilter.addAction(BluetoothLeService.HUMIDITY_NOTIFICATION);
+        intentFilter.addAction(BluetoothLeService.MOTION_NOTIFICATION);
         return intentFilter;
     }
 
@@ -372,6 +377,11 @@ public class DeviceControlActivity extends Activity {
         Log.d("HUM received",  mDeviceAddress + "//////" + humidity);
     }
 
+    public void MotionChangeEvent(String Motion) {
+        Log.d("MOT received",  mDeviceAddress + "//////" + Motion);
+    }
+
+    /*
     class StartActivity extends AsyncTask {
 
         @Override
@@ -380,5 +390,5 @@ public class DeviceControlActivity extends Activity {
             return null;
         }
     }
-
+*/
 }

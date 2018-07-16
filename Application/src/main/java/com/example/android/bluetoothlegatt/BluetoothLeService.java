@@ -54,6 +54,7 @@ public class BluetoothLeService extends Service {
     public static final UUID SECURE_PME_SERVICE                                                 = new UUID(0xEF6804009B354933L, 0x9B1052FFA9740042L);
     public static final UUID CLASSIFICATION_CHARACTERISTIC                                      = new UUID(0xEF68040B9B354933L, 0x9B1052FFA9740042L);
     public static final UUID FEATURE_VECTOR_CHARACTERISTIC                                      = new UUID(0xEF68040C9B354933L, 0x9B1052FFA9740042L);
+    public static final UUID THINGY_MOTION_CONFIGURATION_CHARACTERISTIC                         = new UUID(0xEF6804019B354933L, 0x9B1052FFA9740042L);
 
 
     public static final String TEMPERATURE_NOTIFICATION                                         = "TEMPERATURE_NOTIFICATION_";
@@ -64,6 +65,8 @@ public class BluetoothLeService extends Service {
     public static final String CLASSIFICATION_NOTIFICATION                                      = "CLASSIFICATION_NOTIFICATION_";
     public static final String FEATUREVECTOR_NOTIFICATION                                       = "FEATUREVECTOR_NOTIFICATION_";
 
+    public static final String MOTION_NOTIFICATION                                            = "MOTION_NOTIFICATION_";
+
     public static final SimpleDateFormat TIME_FORMAT                                            = new SimpleDateFormat("HH:mm:ss:SSS");
     public static final SimpleDateFormat TIME_FORMAT_PEDOMETER                                  = new SimpleDateFormat("mm:ss:SS");
 
@@ -72,6 +75,7 @@ public class BluetoothLeService extends Service {
 
     private BluetoothGattCharacteristic mClassificationCharacteristic;
     private BluetoothGattCharacteristic mFeatureVectorCharacteristic;
+    private BluetoothGattCharacteristic mMotionConfigurationCharacteristic;
 
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -142,6 +146,7 @@ public class BluetoothLeService extends Service {
             if (mPMEService != null) {
                 mClassificationCharacteristic = mPMEService.getCharacteristic(CLASSIFICATION_CHARACTERISTIC);
                 mFeatureVectorCharacteristic = mPMEService.getCharacteristic(FEATURE_VECTOR_CHARACTERISTIC);
+                mMotionConfigurationCharacteristic = mPMEService.getCharacteristic(THINGY_MOTION_CONFIGURATION_CHARACTERISTIC);
                 Log.v(TAG, "Reading PME char");
             }
 
@@ -160,6 +165,8 @@ public class BluetoothLeService extends Service {
                     broadcastUpdate(CLASSIFICATION_NOTIFICATION, characteristic, gatt);
                 if(characteristic.equals(mFeatureVectorCharacteristic))
                     broadcastUpdate(FEATUREVECTOR_NOTIFICATION, characteristic, gatt);
+                if(characteristic.equals(mMotionConfigurationCharacteristic))
+                    broadcastUpdate(MOTION_NOTIFICATION, characteristic, gatt);
 //                broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
         }
@@ -181,6 +188,8 @@ public class BluetoothLeService extends Service {
                 broadcastUpdate(CLASSIFICATION_NOTIFICATION, mClassificationCharacteristic, gatt);
             } else if (characteristic.equals(mFeatureVectorCharacteristic)) {
                 broadcastUpdate(FEATUREVECTOR_NOTIFICATION, mFeatureVectorCharacteristic, gatt);
+            } else if (characteristic.equals(mMotionConfigurationCharacteristic)) {
+                broadcastUpdate(MOTION_NOTIFICATION, mMotionConfigurationCharacteristic, gatt);
             }
         }
     };
@@ -390,7 +399,12 @@ public class BluetoothLeService extends Service {
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
-        }
+        } /*else if(THINGY_MOTION_CONFIGURATION_CHARACTERISTIC.equals(charUuid)) {
+            Log.d(TAG, "FeatureVector initialized");
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            mBluetoothGatt.writeDescriptor(descriptor);
+        }*/
         // This is specific to Heart Rate Measurement.
         if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
