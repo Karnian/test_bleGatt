@@ -65,6 +65,11 @@ public class BluetoothLeService extends Service {
     public static final String CLASSIFICATION_NOTIFICATION                                      = "CLASSIFICATION_NOTIFICATION_";
     public static final String FEATUREVECTOR_NOTIFICATION                                       = "FEATUREVECTOR_NOTIFICATION_";
 
+    public static final String EXTRA_DATA_VECTORLENGTH                                          = "EXTRA_DATA_VECTORLENGTH";
+    public static final String EXTRA_DATA_FEATUREVECTOR_0                                       = "EXTRA_DATA_FEATUREVECTOR_0";
+    public static final String EXTRA_DATA_FEATUREVECTOR_1                                       = "EXTRA_DATA_FEATUREVECTOR_1";
+    public static final String EXTRA_DATA_FEATUREVECTOR_2                                       = "EXTRA_DATA_FEATUREVECTOR_2";
+
     public static final String MOTION_NOTIFICATION                                            = "MOTION_NOTIFICATION_";
 
     public static final SimpleDateFormat TIME_FORMAT                                            = new SimpleDateFormat("HH:mm:ss:SSS");
@@ -177,8 +182,6 @@ public class BluetoothLeService extends Service {
 //            broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
 
             if (characteristic.equals(mTemperatureCharacteristic)) {
-                final int mTemperatureInt = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 0);
-                final int mTemperatureDec = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 1);
                 Log.v(TAG, "TMP CHR changed");
                 broadcastUpdate(TEMPERATURE_NOTIFICATION, mTemperatureCharacteristic, gatt);
 
@@ -220,6 +223,14 @@ public class BluetoothLeService extends Service {
             final int heartRate = characteristic.getIntValue(format, 1);
             Log.d(TAG, String.format("Received heart rate: %d", heartRate));
             intent.putExtra(EXTRA_DATA, String.valueOf(heartRate));
+        } else if (mFeatureVectorCharacteristic.equals(characteristic.getUuid())) {
+            final int mClassificationInt1 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 0);
+            final int mClassificationInt2 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 1);
+            final int mClassificationInt3 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 2);
+            final int mClassificationInt4 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 3);
+
+//            intent.putExtra(EXTRA_DEVICE, mBluetoothDevice);
+            intent.putExtra(EXTRA_DATA, String.valueOf(mClassificationInt3));
         } else {
             // For all other profiles, writes the data formatted in HEX.
             final byte[] data = characteristic.getValue();

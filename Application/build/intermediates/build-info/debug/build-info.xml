@@ -2,35 +2,67 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="24"
-    build-mode="COLD"
+    build-mode="FULL"
     density="xxxhdpi"
     format="10"
-    ir-eligibility="FIELD_REMOVED"
     plugin-version="3.0.1"
-    timestamp="1531472215652"
+    timestamp="1531816747493"
     token="3774540577504197262"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="2266" />
+        duration="4719" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="77" />
+        duration="197" />
     <task
         name="verifier"
-        duration="37" />
+        duration="123" />
 
     <artifact
         location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_9.apk"
         type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\outputs\apk\debug\Application-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1531466606266"
+        timestamp="1531816747493"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_9.apk"
@@ -68,15 +100,6 @@
         <artifact
             location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\outputs\apk\debug\Application-debug.apk"
             type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="FIELD_REMOVED"
-        timestamp="1531472215652"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
     </build>
 
 </instant-run>

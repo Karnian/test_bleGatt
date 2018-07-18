@@ -124,6 +124,9 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.THINGY_MOTION_CONFIGURATION_CHARACTERISTIC.equals(action)) {
                 final String motion = intent.getExtras().getString(EXTRA_DATA);
                 MotionChangeEvent(motion);
+            } else if (BluetoothLeService.CLASSIFICATION_CHARACTERISTIC.equals(action)) {
+                final String motion = intent.getExtras().getString(EXTRA_DATA);
+                MotionChangeEvent(motion);
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
                 updateConnectionState(R.string.disconnected);
@@ -359,6 +362,7 @@ public class DeviceControlActivity extends Activity {
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         intentFilter.addAction(BluetoothLeService.TEMPERATURE_NOTIFICATION);
         intentFilter.addAction(BluetoothLeService.HUMIDITY_NOTIFICATION);
+        intentFilter.addAction(BluetoothLeService.CLASSIFICATION_NOTIFICATION);
         intentFilter.addAction(BluetoothLeService.MOTION_NOTIFICATION);
         return intentFilter;
     }
