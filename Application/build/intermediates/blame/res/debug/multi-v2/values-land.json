@@ -4,7 +4,24 @@
             "outputFile": "C:\\Users\\Karnian\\Desktop\\MHE\\android-BluetoothLeGatt-master\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Karnian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\26fb76af37088ea02ca97514a857003e\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Karnian\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\4c2685c9d3b6e8f6c2d07a50aa76e01d\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,130,208",
+                        "endColumns": "74,77,74",
+                        "endOffsets": "125,203,278"
+                    },
+                    "to": {
+                        "startLines": "6,7,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "328,403,481",
+                        "endColumns": "74,77,74",
+                        "endOffsets": "398,476,551"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Karnian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\be91455557484651c2db0f68b8aa0127\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

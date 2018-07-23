@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MainActivity extends Activity {
     public StartActivity mStartActivity;
     public Button buttonConnect;
@@ -15,7 +17,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         buttonConnect = (Button) findViewById(R.id.button);
         buttonConnect.setOnClickListener(new View.OnClickListener() {
             @Override

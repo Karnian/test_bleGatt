@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\Karnian\\Desktop\\MHE\\android-BluetoothLeGatt-master\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Karnian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\26fb76af37088ea02ca97514a857003e\\res\\values-v22\\values-v22.xml",
+                    "source": "C:\\Users\\Karnian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\be91455557484651c2db0f68b8aa0127\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

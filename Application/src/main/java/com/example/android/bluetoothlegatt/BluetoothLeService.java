@@ -36,7 +36,10 @@ import android.view.View;
 import android.widget.Button;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -45,6 +48,12 @@ import java.util.UUID;
  */
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
+
+    protected Map<BluetoothDevice, DeviceControlActivity> mBleConnections = new HashMap<>();
+    protected ArrayList<BluetoothGatt> mGattList = new ArrayList<>();
+    protected ArrayList<BluetoothGattCallback> mGattCallbackList = new ArrayList<>();
+    protected ArrayList<BluetoothDevice> mDevices = new ArrayList<>();
+    protected ArrayList<BluetoothLeService> mLeServiceList = new ArrayList<>();
 
     public static final UUID THINGY_ENVIRONMENTAL_SERVICE                                       = new UUID(0xEF6802009B354933L, 0x9B1052FFA9740042L);
     public static final UUID TEMPERATURE_CHARACTERISTIC                                         = new UUID(0xEF6802019B354933L, 0x9B1052FFA9740042L);
@@ -70,6 +79,11 @@ public class BluetoothLeService extends Service {
     public static final String EXTRA_DATA_FEATUREVECTOR_1                                       = "EXTRA_DATA_FEATUREVECTOR_1";
     public static final String EXTRA_DATA_FEATUREVECTOR_2                                       = "EXTRA_DATA_FEATUREVECTOR_2";
 
+    public static final String EXTRA_DATA_CLASSIFICATION_0                                       = "EXTRA_DATA_CLASSIFICATION_0";
+    public static final String EXTRA_DATA_CLASSIFICATION_1                                       = "EXTRA_DATA_CLASSIFICATION_1";
+    public static final String EXTRA_DATA_CLASSIFICATION_2                                       = "EXTRA_DATA_CLASSIFICATION_2";
+    public static final String EXTRA_DATA_CLASSIFICATION_3                                       = "EXTRA_DATA_CLASSIFICATION_3";
+
     public static final String MOTION_NOTIFICATION                                            = "MOTION_NOTIFICATION_";
 
     public static final SimpleDateFormat TIME_FORMAT                                            = new SimpleDateFormat("HH:mm:ss:SSS");
@@ -78,7 +92,7 @@ public class BluetoothLeService extends Service {
     private BluetoothGattCharacteristic mTemperatureCharacteristic;
     private BluetoothGattCharacteristic mHumidityCharacteristic;
 
-    private BluetoothGattCharacteristic mClassificationCharacteristic;
+    public BluetoothGattCharacteristic mClassificationCharacteristic;
     private BluetoothGattCharacteristic mFeatureVectorCharacteristic;
     private BluetoothGattCharacteristic mMotionConfigurationCharacteristic;
 
@@ -105,9 +119,11 @@ public class BluetoothLeService extends Service {
     public final static String EXTRA_DATA =
             "com.example.bluetooth.le.EXTRA_DATA";
 
-
-    public final static UUID UUID_HEART_RATE_MEASUREMENT =
-            UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "map created");
+    }
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
@@ -118,7 +134,7 @@ public class BluetoothLeService extends Service {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
-                broadcastUpdate(intentAction);
+                broadcastUpdate(intentAction, gatt);
                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
                 Log.i(TAG, "Attempting to start service discovery:" +
@@ -128,14 +144,14 @@ public class BluetoothLeService extends Service {
                 intentAction = ACTION_GATT_DISCONNECTED;
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
-                broadcastUpdate(intentAction);
+                broadcastUpdate(intentAction, gatt);
             }
         }
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
-                broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
+                broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED, gatt);
             } else {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
             }
@@ -152,9 +168,8 @@ public class BluetoothLeService extends Service {
                 mClassificationCharacteristic = mPMEService.getCharacteristic(CLASSIFICATION_CHARACTERISTIC);
                 mFeatureVectorCharacteristic = mPMEService.getCharacteristic(FEATURE_VECTOR_CHARACTERISTIC);
                 mMotionConfigurationCharacteristic = mPMEService.getCharacteristic(THINGY_MOTION_CONFIGURATION_CHARACTERISTIC);
-                Log.v(TAG, "Reading PME char");
+                Log.v(TAG, "Reading PME char " + gatt.getDevice().getAddress());
             }
-
         }
 
         @Override
@@ -162,6 +177,7 @@ public class BluetoothLeService extends Service {
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
+                Log.v(TAG, "Checking PME char");
                 if(characteristic.equals(mTemperatureCharacteristic))
                     broadcastUpdate(TEMPERATURE_NOTIFICATION, characteristic, gatt);
                 if(characteristic.equals(mHumidityCharacteristic))
@@ -180,11 +196,9 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 //            broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
-
+            Log.v(TAG, gatt.getDevice().getAddress() + " // CHR changed");
             if (characteristic.equals(mTemperatureCharacteristic)) {
-                Log.v(TAG, "TMP CHR changed");
                 broadcastUpdate(TEMPERATURE_NOTIFICATION, mTemperatureCharacteristic, gatt);
-
             } else if (characteristic.equals(mHumidityCharacteristic)) {
                 broadcastUpdate(HUMIDITY_NOTIFICATION, mHumidityCharacteristic, gatt);
             } else if (characteristic.equals(mClassificationCharacteristic)) {
@@ -197,40 +211,31 @@ public class BluetoothLeService extends Service {
         }
     };
 
-    private void broadcastUpdate(final String action) {
+    private void broadcastUpdate(final String action, BluetoothGatt gatt) {
         final Intent intent = new Intent(action);
-        intent.putExtra(EXTRA_DEVICE_ADDRESS, mBluetoothDeviceAddress);
+        intent.putExtra(EXTRA_DEVICE_ADDRESS, gatt.getDevice().getAddress());
         sendBroadcast(intent);
     }
 
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic, BluetoothGatt gatt) {
         final Intent intent = new Intent(action);
-
+        intent.putExtra(EXTRA_DEVICE, String.valueOf(gatt.getDevice().getAddress()));
         // This is special handling for the Heart Rate Measurement profile.  Data parsing is
         // carried out as per profile specifications:
         // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
-        if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
-            int flag = characteristic.getProperties();
-            int format = -1;
-            if ((flag & 0x01) != 0) {
-                format = BluetoothGattCharacteristic.FORMAT_UINT16;
-                Log.d(TAG, "Heart rate format UINT16.");
-            } else {
-                format = BluetoothGattCharacteristic.FORMAT_UINT8;
-                Log.d(TAG, "Heart rate format UINT8.");
-            }
-            final int heartRate = characteristic.getIntValue(format, 1);
-            Log.d(TAG, String.format("Received heart rate: %d", heartRate));
-            intent.putExtra(EXTRA_DATA, String.valueOf(heartRate));
-        } else if (mFeatureVectorCharacteristic.equals(characteristic.getUuid())) {
+        if (CLASSIFICATION_NOTIFICATION.equals(action)) {
+            Log.d(TAG, "Classification update");
             final int mClassificationInt1 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 0);
             final int mClassificationInt2 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 1);
             final int mClassificationInt3 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 2);
             final int mClassificationInt4 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 3);
 
 //            intent.putExtra(EXTRA_DEVICE, mBluetoothDevice);
-            intent.putExtra(EXTRA_DATA, String.valueOf(mClassificationInt3));
+            intent.putExtra(EXTRA_DATA_CLASSIFICATION_0, String.valueOf(mClassificationInt1));
+            intent.putExtra(EXTRA_DATA_CLASSIFICATION_1, String.valueOf(mClassificationInt2));
+            intent.putExtra(EXTRA_DATA_CLASSIFICATION_2, String.valueOf(mClassificationInt3));
+            intent.putExtra(EXTRA_DATA_CLASSIFICATION_3, String.valueOf(mClassificationInt4));
         } else {
             // For all other profiles, writes the data formatted in HEX.
             final byte[] data = characteristic.getValue();
@@ -241,7 +246,7 @@ public class BluetoothLeService extends Service {
                 intent.putExtra(EXTRA_DATA, new String(data) + "\n" + stringBuilder.toString());
             }
         }
-        intent.putExtra(EXTRA_DEVICE, mBluetoothDeviceAddress);
+
         sendBroadcast(intent);
     }
 
@@ -328,9 +333,19 @@ public class BluetoothLeService extends Service {
         // We want to directly connect to the device, so we are setting the autoConnect
         // parameter to false.
         mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
+
+        mBleConnections.put(device, new DeviceControlActivity());
+        if (!mDevices.contains(device)) {
+            mDevices.add(device);
+            mGattList.add(mBluetoothGatt);
+            mGattCallbackList.add(mGattCallback);
+            mLeServiceList.add(this);
+        }
+
         Log.d(TAG, "Trying to create a new connection.");
         mBluetoothDeviceAddress = address;
         mConnectionState = STATE_CONNECTING;
+
         return true;
     }
 
@@ -410,18 +425,38 @@ public class BluetoothLeService extends Service {
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
-        } /*else if(THINGY_MOTION_CONFIGURATION_CHARACTERISTIC.equals(charUuid)) {
+        }
+    }
+
+    public void setCharacteristicNotification(BluetoothGatt bleGatt, BluetoothGattCharacteristic characteristic,
+                                              boolean enabled) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.d(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        Log.d(TAG, "initialize character : " + characteristic.getUuid());
+        bleGatt.setCharacteristicNotification(characteristic, enabled);
+        UUID charUuid = characteristic.getUuid();
+        if(TEMPERATURE_CHARACTERISTIC.equals(charUuid)) {
+            Log.d(TAG, "Temperature initialized");
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            bleGatt.writeDescriptor(descriptor);
+        } else if(HUMIDITY_CHARACTERISTIC.equals(charUuid)) {
+            Log.d(TAG, "Humidity initialized");
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            bleGatt.writeDescriptor(descriptor);
+        } else if(CLASSIFICATION_CHARACTERISTIC.equals(charUuid)) {
+            Log.d(TAG, "Classification initialized");
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            bleGatt.writeDescriptor(descriptor);
+        } else if(FEATURE_VECTOR_CHARACTERISTIC.equals(charUuid)) {
             Log.d(TAG, "FeatureVector initialized");
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIGURATOIN_DESCRIPTOR);
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-            mBluetoothGatt.writeDescriptor(descriptor);
-        }*/
-        // This is specific to Heart Rate Measurement.
-        if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
-            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-                    UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
-            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-            mBluetoothGatt.writeDescriptor(descriptor);
+            bleGatt.writeDescriptor(descriptor);
         }
     }
 
@@ -437,4 +472,13 @@ public class BluetoothLeService extends Service {
         return mBluetoothGatt.getServices();
     }
 
+    public void changeCharacteristic(BluetoothDevice device, boolean enable, BluetoothGatt bleGatt) {
+        final BluetoothGattService cPMEService = bleGatt.getService(SECURE_PME_SERVICE);
+        if (cPMEService != null) {
+            BluetoothGattCharacteristic rClassificationCharacteristic = cPMEService.getCharacteristic(CLASSIFICATION_CHARACTERISTIC);
+            setCharacteristicNotification(rClassificationCharacteristic, enable);
+            mGattCallback.onCharacteristicChanged(bleGatt, rClassificationCharacteristic);
+            Log.d(TAG, device.getAddress() + "// " + rClassificationCharacteristic + enable);
+        }
+    }
 }

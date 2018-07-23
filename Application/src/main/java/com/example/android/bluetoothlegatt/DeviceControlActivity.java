@@ -16,9 +16,14 @@
 
 package com.example.android.bluetoothlegatt;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -30,15 +35,25 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,16 +65,18 @@ import java.util.UUID;
  * communicates with {@code BluetoothLeService}, which in turn interacts with the
  * Bluetooth LE API.
  */
-public class DeviceControlActivity extends Activity {
+public class DeviceControlActivity extends ListActivity {
     private final static String TAG = DeviceControlActivity.class.getSimpleName();
 
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
-    public static final String TEMPERATURE_NOTIFICATION                                         = "TEMPERATURE_NOTIFICATION_";
-    public static final String HUMIDITY_NOTIFICATION                                            = "HUMIDITY_NOTIFICATION_";
     public static final String EXTRA_DATA                                                       = "EXTRA_DATA";
     public static final String EXTRA_DEVICE                                                     = "EXTRA_DEVICE";
 
+    private ListView mResultList;
+    private ListViewAdapter mResultAdapter;
+
+    public ArrayList<BluetoothLeService> leServicesList = new ArrayList<>();
     private TextView mConnectionState;
     private TextView mDataField;
     private String mDeviceName;
@@ -69,16 +86,134 @@ public class DeviceControlActivity extends Activity {
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
+    private boolean mOpen = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
 
-//    public StartActivity mStartActivity;
-    public Button addButton;
+    public StartActivity mStartActivity;
 
-    private BluetoothGattCharacteristic mTemperatureCharacteristic;
-    private BluetoothGattCharacteristic mHumidityCharacteristic;
+    public ImageView result_img;
+
+    private class ListViewAdapter extends BaseAdapter {
+        private ArrayList<BluetoothLeService> mListService;
+        protected ArrayList<BluetoothGatt> mGattList;
+        protected ArrayList<BluetoothGattCallback> mGattCallbackList;
+        private ArrayList<BluetoothDevice> mDevices;
+        private LayoutInflater mInflator;
+        private BluetoothDevice currentDevice;
+
+        public ListViewAdapter(ArrayList<BluetoothGatt> gattList) {
+            super();
+            mListService = new ArrayList<BluetoothLeService>();
+            mDevices = new ArrayList<BluetoothDevice>();
+            mGattList = gattList;
+            mGattCallbackList = mBluetoothLeService.mGattCallbackList;
+            mInflator = DeviceControlActivity.this.getLayoutInflater();
+        }
+
+        public void addLeService(BluetoothLeService LeService) {
+            if(!mListService.contains(LeService)) {
+                mListService.add(LeService);
+            }
+        }
+
+        public void addDevice(BluetoothDevice device) {
+            if(!mDevices.contains(device)) {
+                mDevices.add(device);
+            }
+            dataChange();
+        }
+
+        public BluetoothLeService getService(int position) {
+            return mListService.get(position);
+        }
+
+        public void clear() {
+            mListService.clear();
+        }
+
+        @Override
+        public int getCount() {
+            return mDevices.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mDevices.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+
+        public void dataChange() {
+            mResultAdapter.notifyDataSetChanged();
+        }
+
+        @SuppressLint("ResourceType")
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            Log.e(TAG, "result view start // " + mGattList.get(i).getDevice().getAddress());
+            final DeviceControlActivity.ViewHolder viewHolder;
+            // General ListView optimization code.
+            if (view == null) {
+                view = mInflator.inflate(R.layout.result_layout, null);
+                viewHolder = new DeviceControlActivity.ViewHolder();
+                viewHolder.mDetectionTextView = (TextView) view.findViewById(R.id.result_title);
+                viewHolder.mDetectionSwitch = (Switch) view.findViewById(R.id.switch_detect);
+                viewHolder.mResultToolbar = (Toolbar) view.findViewById(R.id.pme_detect_toolbar);
+                // PME result
+                result_img = view.findViewById(R.id.result_img);
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (DeviceControlActivity.ViewHolder) view.getTag();
+            }
+
+//            final BluetoothLeService service = mListService.get(i);
+            currentDevice = mGattList.get(i).getDevice();
+            final BluetoothGatt currentGatt = mGattList.get(i);
+            final String deviceName = currentDevice.getName();
+            if (deviceName != null && deviceName.length() > 0)
+                viewHolder.mDetectionTextView.setText(deviceName + " " + currentDevice.getAddress());
+            else
+                viewHolder.mDetectionTextView.setText(R.string.unknown_device);
+//            viewHolder.deviceAddress.setText(device.getAddress());
+
+
+            if (viewHolder.mResultToolbar != null) {
+//            viewHolder.mResultToolbar.setTitle("result_title");
+
+                viewHolder.mDetectionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        mBluetoothLeService.setCharacteristicNotification(mGattList.get(i), mBluetoothLeService.mClassificationCharacteristic, isChecked);
+                        Log.d(TAG, mGattList.get(i).getDevice().getAddress() + "// clicked // " + i);
+                        /*
+                        if (viewHolder.mDetectionSwitch.get) {
+                            Log.d("PME FRAGEMENT: ", "switch on for " + currentDevice.getAddress());
+                            mBluetoothLeService.setCharacteristicNotification(mBluetoothLeService.mClassificationCharacteristic, true);
+                            viewHolder.mDetectionSwitch.setChecked(isChecked);
+                        } else {
+                            Log.d("PME FRAGEMENT: ", "switch off for " + mDeviceAddress);
+                            mBluetoothLeService.setCharacteristicNotification(mBluetoothLeService.mClassificationCharacteristic, false);
+                            viewHolder.mDetectionSwitch.setChecked(!isChecked);
+                        }
+                        */
+                    }
+                });
+            }
+            else {
+                Log.d(TAG, "button is null");
+            }
+
+            return view;
+        }
+    }
+
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -91,6 +226,15 @@ public class DeviceControlActivity extends Activity {
             }
             // Automatically connects to the device upon successful start-up initialization.
             mBluetoothLeService.connect(mDeviceAddress);
+            mBluetoothLeService.mLeServiceList.add(mBluetoothLeService);
+            mResultAdapter = new ListViewAdapter(mBluetoothLeService.mGattList);
+            setListAdapter(mResultAdapter);
+            for (int i = 0; i < mBluetoothLeService.mDevices.size(); i++) {
+                Log.d(TAG, "BLE added " + mBluetoothLeService.mDevices.get(i).getAddress());
+                Log.d("LeService // ", mBluetoothLeService.mGattList.get(i).getDevice().getAddress());
+                mResultAdapter.addDevice(mBluetoothLeService.mDevices.get(i));
+            }
+            mConnected = true;
         }
 
         @Override
@@ -113,29 +257,25 @@ public class DeviceControlActivity extends Activity {
             Log.d("ACTION : ",  mDeviceAddress + "//////" + action);
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-                updateConnectionState(R.string.connected);
-                invalidateOptionsMenu();
             } else if (BluetoothLeService.TEMPERATURE_NOTIFICATION.equals(action)) {
                 final String temperature = intent.getExtras().getString(EXTRA_DATA);
                 TempChangeEvent(temperature);
             } else if (BluetoothLeService.HUMIDITY_NOTIFICATION.equals(action)) {
                 final String humidity = intent.getExtras().getString(EXTRA_DATA);
                 HumidChangeEvent(humidity);
-            } else if (BluetoothLeService.THINGY_MOTION_CONFIGURATION_CHARACTERISTIC.equals(action)) {
-                final String motion = intent.getExtras().getString(EXTRA_DATA);
-                MotionChangeEvent(motion);
-            } else if (BluetoothLeService.CLASSIFICATION_CHARACTERISTIC.equals(action)) {
-                final String motion = intent.getExtras().getString(EXTRA_DATA);
-                MotionChangeEvent(motion);
+            } else if (BluetoothLeService.CLASSIFICATION_NOTIFICATION.equals(action)) {
+                final String motion0 = intent.getExtras().getString(BluetoothLeService.EXTRA_DATA_CLASSIFICATION_0);
+                final String motion1 = intent.getExtras().getString(BluetoothLeService.EXTRA_DATA_CLASSIFICATION_1);
+                final String motion2 = intent.getExtras().getString(BluetoothLeService.EXTRA_DATA_CLASSIFICATION_2);
+                final String motion3 = intent.getExtras().getString(BluetoothLeService.EXTRA_DATA_CLASSIFICATION_3);
+                MotionChangeEvent(motion0, motion1, motion2, motion3);
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-                updateConnectionState(R.string.disconnected);
-                invalidateOptionsMenu();
-                clearUI();
-            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+            } /*
+            else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
-            } /*
+            }
             else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             }*/
@@ -184,15 +324,17 @@ public class DeviceControlActivity extends Activity {
         mDataField.setText(R.string.no_data);
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gatt_services_characteristics);
+//        setContentView(R.layout.result_layout);
 
         final Intent intent = getIntent();
-        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        mDeviceName = new String(intent.getStringExtra(EXTRAS_DEVICE_NAME));
+        mDeviceAddress = new String(intent.getStringExtra(EXTRAS_DEVICE_ADDRESS));
 
+        /*
         // Sets up UI references.
         ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
@@ -212,6 +354,8 @@ public class DeviceControlActivity extends Activity {
 
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        */
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
@@ -273,6 +417,11 @@ public class DeviceControlActivity extends Activity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.menu_add:
+                mStartActivity = new StartActivity();
+                mStartActivity.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 0);
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -381,11 +530,25 @@ public class DeviceControlActivity extends Activity {
         Log.d("HUM received",  mDeviceAddress + "//////" + humidity);
     }
 
-    public void MotionChangeEvent(String Motion) {
-        Log.d("MOT received",  mDeviceAddress + "//////" + Motion);
+    public void MotionChangeEvent(String status1, String status2, String status3, String status4) {
+        Log.d("MOT received",  mDeviceAddress + "//////" + status1 + status2 + status3 + status4);
+
+        if(status3 == null)
+            return;
+        if(status3.equals("0"))
+            result_img.setImageResource(R.drawable.pme_unknown);
+        else if(status3.equals("1"))
+            result_img.setImageResource(R.drawable.pme_sleep);
+        else if(status3.equals("2"))
+            result_img.setImageResource(R.drawable.pme_study);
+        else if(status3.equals("3"))
+            result_img.setImageResource(R.drawable.pme_phone);
+        else if(status3.equals("4"))
+            result_img.setImageResource(R.drawable.pme_eat);
+        else if(status3.equals("5"))
+            result_img.setImageResource(R.drawable.pme_walk);
     }
 
-    /*
     class StartActivity extends AsyncTask {
 
         @Override
@@ -394,5 +557,10 @@ public class DeviceControlActivity extends Activity {
             return null;
         }
     }
-*/
+
+    private class ViewHolder {
+        public Toolbar mResultToolbar;
+        public Switch mDetectionSwitch;
+        public TextView mDetectionTextView;
+    }
 }

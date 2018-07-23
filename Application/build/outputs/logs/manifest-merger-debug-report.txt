@@ -3,19 +3,23 @@ manifest
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:16:1-67:12
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:16:1-67:12
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:16:1-67:12
-MERGED from [com.android.support:support-v13:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v13-27.0.2.aar\d8e2af189112649e1cdad310c8529d2a\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\6d1ae7523dcf718ba5dc5d6fd47927ab\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\09e3b49952e3a9649e897ba2843bfb85\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\26fb76af37088ea02ca97514a857003e\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\5eb5a1861eb65985a60ae3f8bd42fe1c\AndroidManifest.xml:2:1-11:12
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\8e6d33fbaa93f7ae41e8aaa289f61cc9\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\28887934a293a40e284e149361edcfb7\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\c7cc162b850bc4352b2ab6a2cd4cfaef\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\c361b25d3abee3fd7f449b0c6d733f96\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\dfb451e10874c4398bfaf7480849feb6\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\84eb4a8ca460fa366d2dad2675107963\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\54020cd3aa4bff28232eec5ac864d985\AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\75fde1edd4f6dd2c70a229810f2fba04\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\67f5849c88549c6c8862986f06d33a82\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\6364a934f53cdfc3c537f5bb9635ce7b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:mediarouter-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\4c2685c9d3b6e8f6c2d07a50aa76e01d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\be91455557484651c2db0f68b8aa0127\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\7eabc275fc49ebe1f2bf2981d75e13f2\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:palette-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\palette-v7-27.1.1.aar\4965d8dd0239ff9829ad83264ee7c1d7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\52ae052177eda1396d24ce6c2a566e96\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\0ed102b00315406025b861539a4e983b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\ba69f14d851d0c2a41e1e31c02ab8e95\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\b451fa1ae34274105299311f79068cfc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\582fd7555b4ae41c3cd7ec31bf20f69f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\e682f4c2b4faff6c92cf820f0fbaeb1f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\9c3108acfa6f3dbf6e6d02870011e7b3\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2873e94c1c57e3864b932c8f3590701d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\eb6e298b8b0770b0c86932f2199b488f\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\1219dfe24c009a4b3b0464b7f3f32c5e\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\eaca8c62ebd05fb0543d52685b962b61\AndroidManifest.xml:17:1-22:12
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:16:1-67:12
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:16:1-67:12
 	package
@@ -54,8 +58,8 @@ ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Applicati
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:37:22-76
 application
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:39:5-65:19
-MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\5eb5a1861eb65985a60ae3f8bd42fe1c\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\5eb5a1861eb65985a60ae3f8bd42fe1c\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\7eabc275fc49ebe1f2bf2981d75e13f2\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\7eabc275fc49ebe1f2bf2981d75e13f2\AndroidManifest.xml:9:5-20
 	android:label
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:41:9-41
 	android:icon
@@ -68,7 +72,7 @@ ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Applicati
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:45:13-45
 	android:name
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:44:13-47
-intent-filter#android.intent.action.MAIN
+intent-filter#action:name:android.intent.action.MAIN
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:46:13-48:29
 action#android.intent.action.MAIN
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:47:17-69
@@ -90,7 +94,7 @@ ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Applicati
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:58:13-56
 	android:name
 		ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:57:13-41
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:59:13-63:29
 category#android.intent.category.LAUNCHER
 ADDED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml:62:17-77
@@ -100,32 +104,40 @@ uses-sdk
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml
-MERGED from [com.android.support:support-v13:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v13-27.0.2.aar\d8e2af189112649e1cdad310c8529d2a\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v13:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v13-27.0.2.aar\d8e2af189112649e1cdad310c8529d2a\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\6d1ae7523dcf718ba5dc5d6fd47927ab\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\6d1ae7523dcf718ba5dc5d6fd47927ab\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\09e3b49952e3a9649e897ba2843bfb85\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\09e3b49952e3a9649e897ba2843bfb85\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\26fb76af37088ea02ca97514a857003e\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\26fb76af37088ea02ca97514a857003e\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\5eb5a1861eb65985a60ae3f8bd42fe1c\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\5eb5a1861eb65985a60ae3f8bd42fe1c\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\8e6d33fbaa93f7ae41e8aaa289f61cc9\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\8e6d33fbaa93f7ae41e8aaa289f61cc9\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\28887934a293a40e284e149361edcfb7\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\28887934a293a40e284e149361edcfb7\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\c7cc162b850bc4352b2ab6a2cd4cfaef\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\c7cc162b850bc4352b2ab6a2cd4cfaef\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\c361b25d3abee3fd7f449b0c6d733f96\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\c361b25d3abee3fd7f449b0c6d733f96\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\dfb451e10874c4398bfaf7480849feb6\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\dfb451e10874c4398bfaf7480849feb6\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\84eb4a8ca460fa366d2dad2675107963\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\84eb4a8ca460fa366d2dad2675107963\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\54020cd3aa4bff28232eec5ac864d985\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\54020cd3aa4bff28232eec5ac864d985\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\75fde1edd4f6dd2c70a229810f2fba04\AndroidManifest.xml:20:5-22:41
-MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\75fde1edd4f6dd2c70a229810f2fba04\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\67f5849c88549c6c8862986f06d33a82\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\67f5849c88549c6c8862986f06d33a82\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\6364a934f53cdfc3c537f5bb9635ce7b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\6364a934f53cdfc3c537f5bb9635ce7b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:mediarouter-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\4c2685c9d3b6e8f6c2d07a50aa76e01d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:mediarouter-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\4c2685c9d3b6e8f6c2d07a50aa76e01d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\be91455557484651c2db0f68b8aa0127\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\be91455557484651c2db0f68b8aa0127\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\7eabc275fc49ebe1f2bf2981d75e13f2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\7eabc275fc49ebe1f2bf2981d75e13f2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:palette-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\palette-v7-27.1.1.aar\4965d8dd0239ff9829ad83264ee7c1d7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:palette-v7:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\palette-v7-27.1.1.aar\4965d8dd0239ff9829ad83264ee7c1d7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\52ae052177eda1396d24ce6c2a566e96\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\52ae052177eda1396d24ce6c2a566e96\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\0ed102b00315406025b861539a4e983b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\0ed102b00315406025b861539a4e983b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\ba69f14d851d0c2a41e1e31c02ab8e95\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\ba69f14d851d0c2a41e1e31c02ab8e95\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\b451fa1ae34274105299311f79068cfc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\b451fa1ae34274105299311f79068cfc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\582fd7555b4ae41c3cd7ec31bf20f69f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\582fd7555b4ae41c3cd7ec31bf20f69f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\e682f4c2b4faff6c92cf820f0fbaeb1f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\e682f4c2b4faff6c92cf820f0fbaeb1f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\9c3108acfa6f3dbf6e6d02870011e7b3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\9c3108acfa6f3dbf6e6d02870011e7b3\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2873e94c1c57e3864b932c8f3590701d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2873e94c1c57e3864b932c8f3590701d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\eb6e298b8b0770b0c86932f2199b488f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\eb6e298b8b0770b0c86932f2199b488f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\1219dfe24c009a4b3b0464b7f3f32c5e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\1219dfe24c009a4b3b0464b7f3f32c5e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\eaca8c62ebd05fb0543d52685b962b61\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Karnian\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\eaca8c62ebd05fb0543d52685b962b61\AndroidManifest.xml:20:5-44
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Karnian\Desktop\MHE\android-BluetoothLeGatt-master\Application\src\main\AndroidManifest.xml
 	android:targetSdkVersion

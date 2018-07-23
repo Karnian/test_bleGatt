@@ -1,4 +1,0 @@
-#Thu Jul 12 15:15:49 KST 2018
-base.0=C\:\\Users\\Karnian\\Desktop\\MHE\\android-BluetoothLeGatt-master\\Application\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
